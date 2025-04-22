@@ -35,10 +35,10 @@ import {
 } from "@dnd-kit/sortable";
 import { createPortal } from "react-dom";
 
-import { AnyObject, cn } from "@acme/ui";
+import type { AnyObject } from "@acme/ui";
+import { cn } from "@acme/ui";
 
-import type { ItemProps } from "./_components/item";
-import type { SortableItemDef } from "./types";
+import type { SortableItemDef } from "../types";
 import { Item } from "./_components/item";
 import { List } from "./_components/list";
 import { SortableItem } from "./_components/sortable-item";
@@ -80,7 +80,7 @@ export interface DndSortableProps<TRecord extends AnyObject = AnyObject> {
   handle?: boolean;
   // itemCount?: number;
   items: SortableItemDef<TRecord>[];
-  renderItem?: ItemProps["renderItem"];
+  renderItem?: (args: { item: TRecord }) => React.ReactNode;
   onDragEnd?: (
     args: { activeIndex: number; overIndex: number },
     flattenedItems: SortableItemDef<TRecord>[],
@@ -109,7 +109,7 @@ export interface DndSortableProps<TRecord extends AnyObject = AnyObject> {
   isDisabled?(id: UniqueIdentifier): boolean;
 }
 
-export const DndSortable = <TRecord extends AnyObject = AnyObject>({
+export const SortableV1 = <TRecord extends AnyObject = AnyObject>({
   classNames,
   activationConstraint,
   animateLayoutChanges,

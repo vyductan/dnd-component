@@ -1,5 +1,4 @@
 import type {
-  DraggableAttributes,
   DraggableSyntheticListeners,
   UniqueIdentifier,
 } from "@dnd-kit/core";
@@ -7,8 +6,6 @@ import type { Transform } from "@dnd-kit/utilities";
 import React, { useEffect } from "react";
 
 import { cn } from "@acme/ui";
-import { Button } from "@acme/ui/button";
-import { Icon } from "@acme/ui/icons";
 
 import { Handle } from "./handle";
 import styles from "./item.module.css";
@@ -32,7 +29,7 @@ export interface ItemProps {
   wrapperStyle?: React.CSSProperties;
   // value: React.ReactNode; // rename to children
   onRemove?: () => void;
-  renderItem?(args: {
+  renderItem: (args: {
     dragOverlay: boolean;
     dragging: boolean;
     sorting: boolean;
@@ -50,7 +47,7 @@ export interface ItemProps {
     nodes?: {
       Handle?: React.ReactNode;
     };
-  }): React.ReactElement<any>;
+  }) => React.ReactElement<any>;
 
   id: UniqueIdentifier;
   children: React.ReactNode;

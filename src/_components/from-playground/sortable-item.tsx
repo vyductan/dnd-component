@@ -2,8 +2,10 @@ import type { UniqueIdentifier } from "@dnd-kit/core";
 import type { AnimateLayoutChanges, NewIndexGetter } from "@dnd-kit/sortable";
 import { useSortable } from "@dnd-kit/sortable";
 
+import type { CustomizeComponent } from "@acme/ui/table";
+
+import type { DndSortableProps } from "../sortable";
 import type { ItemProps } from "./item";
-import { DndSortableProps } from "../sortable";
 import { Item } from "./item";
 
 interface SortableItemProps
@@ -21,6 +23,8 @@ interface SortableItemProps
   style(values: any): React.CSSProperties;
   renderItem?(args: any): React.ReactElement<any>;
   wrapperStyle: DndSortableProps["wrapperStyle"];
+
+  components?: ItemProps["components"];
 }
 
 export const SortableItem = ({
@@ -40,6 +44,8 @@ export const SortableItem = ({
   wrapperStyle,
 
   children,
+
+  components,
 
   ...itemProps
 }: SortableItemProps) => {
@@ -61,6 +67,8 @@ export const SortableItem = ({
     getNewIndex,
   });
 
+  // const I = components?.item ?? Item;
+  // console.log("cc", components?.item);
   return (
     <Item
       ref={setNodeRef}
@@ -96,6 +104,7 @@ export const SortableItem = ({
       {...attributes}
       // own
       id={id}
+      components={components}
       {...itemProps}
     >
       {children}

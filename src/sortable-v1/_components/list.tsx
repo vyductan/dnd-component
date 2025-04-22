@@ -11,7 +11,10 @@ export interface Props {
 }
 
 export const List = forwardRef<HTMLUListElement, Props>(
-  ({ children, columns = 1, horizontal, style, className }: Props, ref) => {
+  (
+    { children, columns = 1, horizontal, style, className, ...props }: Props,
+    ref,
+  ) => {
     return (
       <ul
         ref={ref}
@@ -30,6 +33,7 @@ export const List = forwardRef<HTMLUListElement, Props>(
           horizontal && "grid-flow-col",
           className,
         )}
+        {...props}
       >
         {children}
       </ul>
