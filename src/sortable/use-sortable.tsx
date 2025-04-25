@@ -30,7 +30,7 @@ type SortableStore = SortableState & SortableActions;
 const defaultInitState: SortableState = {
   items: [],
   strategy: rectSortingStrategy,
-  flatCursor: true,
+  flatCursor: false,
 };
 
 const createSortableStore = (initState: SortableState = defaultInitState) => {

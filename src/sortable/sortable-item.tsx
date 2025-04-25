@@ -71,7 +71,7 @@ export const SortableItem = ({
           "cursor-default": flatCursor,
           "data-dragging:cursor-grabbing": !flatCursor,
           "cursor-grab": !isDragging && asHandle && !flatCursor,
-          "opacity-50": isDragging,
+          "opacity-50": isDragging && !asHandle,
           "pointer-events-none opacity-50": disabled,
         },
         className,

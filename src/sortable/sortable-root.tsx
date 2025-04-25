@@ -68,13 +68,17 @@ const screenReaderInstructions: ScreenReaderInstructions = {
 type SortableRootProps<TRecord extends AnyObject> = DndContextProps & {
   items: SortableItemDef<TRecord>[];
 
-  orientation?: "vertical" | "horizontal" | "mixed";
-
+  /* Control the delay or distance to start the drag */
   activationConstraint?: PointerActivationConstraint;
+  /* Control the keyboard coordinate */
   coordinateGetter?: KeyboardCoordinateGetter;
+  /* Control the collision detection */
   collisionDetection?: CollisionDetection;
 
   strategy?: SortingStrategy;
+
+  orientation?: "vertical" | "horizontal" | "mixed";
+  flatCursor?: boolean;
 
   // onMove?: typeof arrayMove;
   // onDragEnd?: (
@@ -85,11 +89,13 @@ type SortableRootProps<TRecord extends AnyObject> = DndContextProps & {
 };
 const SortableRoot = <TRecord extends AnyObject>({
   items,
-  orientation = "vertical",
   accessibility,
 
   modifiers: modifiersProp,
   strategy: strategyProp,
+
+  orientation = "vertical",
+  flatCursor = false,
 
   activationConstraint,
   collisionDetection,
@@ -119,10 +125,10 @@ const SortableRoot = <TRecord extends AnyObject>({
 
   const sensors = useSensors(
     useSensor(MouseSensor, {
-      // activationConstraint,
+      activationConstraint,
     }),
     useSensor(TouchSensor, {
-      // activationConstraint,
+      activationConstraint,
     }),
     useSensor(KeyboardSensor, {
       coordinateGetter,
@@ -202,7 +208,11 @@ const SortableRoot = <TRecord extends AnyObject>({
   );
 
   return (
-    <SortableStoreProvider items={items} strategy={strategyProp}>
+    <SortableStoreProvider
+      items={items}
+      strategy={strategyProp}
+      flatCursor={flatCursor}
+    >
       <DndContext
         accessibility={{
           announcements,
@@ -221,4 +231,5 @@ const SortableRoot = <TRecord extends AnyObject>({
   );
 };
 
+export type { SortableRootProps };
 export { SortableRoot };

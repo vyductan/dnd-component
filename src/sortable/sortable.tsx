@@ -7,17 +7,36 @@ import type { SortableItemDef } from "../types";
 import { SortableContent } from "./sortable-content";
 import { SortableItem } from "./sortable-item";
 import { SortableOverlay } from "./sortable-overlay";
-import { SortableRoot } from "./sortable-root";
+import { SortableRoot, SortableRootProps } from "./sortable-root";
 
-type SortableProps<TRecord extends AnyObject = AnyObject> = {
+type SortableProps<TRecord extends AnyObject = AnyObject> = Pick<
+  SortableRootProps<TRecord>,
+  | "orientation"
+  | "flatCursor"
+  | "activationConstraint"
+  | "collisionDetection"
+  | "coordinateGetter"
+  | "onChange"
+> & {
   dataSource: SortableItemDef<TRecord>[];
   rowKey: keyof TRecord | ((record: SortableItemDef<TRecord>) => React.Key);
   renderItem?: (ctx: { record: SortableItemDef<TRecord> }) => React.ReactNode;
+
+  classNames?: {
+    content?: string;
+  };
+  withOverlay?: boolean;
 };
 const Sortable = <TRecord extends AnyObject = AnyObject>({
   dataSource,
   rowKey,
   renderItem,
+
+  onChange,
+
+  classNames,
+  withOverlay = true,
+  ...props
 }: SortableProps<TRecord>) => {
   const [items, setItems] = React.useState(dataSource);
   useEffect(() => {
@@ -54,14 +73,18 @@ const Sortable = <TRecord extends AnyObject = AnyObject>({
       items={items}
       onChange={(items) => {
         setItems(items);
+        onChange?.(items);
       }}
+      {...props}
     >
-      <SortableContent>
+      <SortableContent className={classNames?.content}>
         {items.map((item, index) => renderInternalItem(item, index))}
       </SortableContent>
-      <SortableOverlay>
-        {({ item }) => <div>{renderInternalItem(item, 0).props.children}</div>}
-      </SortableOverlay>
+      {withOverlay && (
+        <SortableOverlay>
+          {({ item }) => renderInternalItem(item, 0).props.children}
+        </SortableOverlay>
+      )}
     </SortableRoot>
   );
 };
