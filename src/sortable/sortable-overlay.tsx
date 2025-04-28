@@ -3,7 +3,7 @@ import React from "react";
 import { defaultDropAnimationSideEffects, DragOverlay } from "@dnd-kit/core";
 import ReactDOM from "react-dom";
 
-import { cn } from "@acme/ui";
+import { cn } from "@acme/ui/lib/utils";
 
 import type { SortableItemDef } from "../types";
 import { useSortableStore } from "./use-sortable";

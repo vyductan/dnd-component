@@ -36,8 +36,8 @@ import {
 import { createPortal } from "react-dom";
 
 import type { AnyObject } from "@acme/ui";
-import type { CustomizeComponent } from "@acme/ui/table";
-import { cn } from "@acme/ui";
+import type { CustomizeComponent } from "@acme/ui/components/table";
+import { cn } from "@acme/ui/lib/utils";
 
 import type { ItemProps } from "./_components/item";
 import type { SortableItemDef } from "./types";

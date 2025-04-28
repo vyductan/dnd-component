@@ -6,8 +6,8 @@ import type { Transform } from "@dnd-kit/utilities";
 import React, { useEffect } from "react";
 
 import type { AnyObject } from "@acme/ui";
-import type { CustomizeComponent } from "@acme/ui/table";
-import { cn } from "@acme/ui";
+import type { CustomizeComponent } from "@acme/ui/components/table";
+import { cn } from "@acme/ui/lib/utils";
 
 import { Handle } from "./handle";
 import styles from "./item.module.css";

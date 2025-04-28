@@ -2,7 +2,7 @@ import type { UniqueIdentifier } from "@dnd-kit/core";
 import type { AnimateLayoutChanges, NewIndexGetter } from "@dnd-kit/sortable";
 import { useSortable } from "@dnd-kit/sortable";
 
-import type { CustomizeComponent } from "@acme/ui/table";
+import type { CustomizeComponent } from "@acme/ui/components/table";
 
 import type { DndSortableProps } from "../sortable";
 import type { ItemProps } from "./item";

@@ -5,7 +5,7 @@ import type {
 import type { Transform } from "@dnd-kit/utilities";
 import React, { useEffect } from "react";
 
-import { cn } from "@acme/ui";
+import { cn } from "@acme/ui/lib/utils";
 
 import { Handle } from "./handle";
 import styles from "./item.module.css";
