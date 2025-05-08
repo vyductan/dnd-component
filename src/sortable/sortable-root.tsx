@@ -33,7 +33,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 
-import type { AnyObject } from "@acme/ui";
+import type { AnyObject } from "@acme/ui/types";
 
 import type { SortableItemDef } from "../types";
 import { composeEventHandlers } from "../utils/composition";

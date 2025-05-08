@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React, { useEffect } from "react";
 
-import type { AnyObject } from "@acme/ui";
+import type { AnyObject } from "@acme/ui/types";
 
 import type { SortableItemDef } from "../types";
+import type { SortableRootProps } from "./sortable-root";
 import { SortableContent } from "./sortable-content";
 import { SortableItem } from "./sortable-item";
 import { SortableOverlay } from "./sortable-overlay";
-import { SortableRoot, SortableRootProps } from "./sortable-root";
+import { SortableRoot } from "./sortable-root";
 
 type SortableProps<TRecord extends AnyObject = AnyObject> = Pick<
   SortableRootProps<TRecord>,
@@ -22,9 +23,7 @@ type SortableProps<TRecord extends AnyObject = AnyObject> = Pick<
   rowKey: keyof TRecord | ((record: SortableItemDef<TRecord>) => React.Key);
   renderItem?: (ctx: { record: SortableItemDef<TRecord> }) => React.ReactNode;
 
-  classNames?: {
-    content?: string;
-  };
+  className?: string;
   withOverlay?: boolean;
 };
 const Sortable = <TRecord extends AnyObject = AnyObject>({
@@ -34,7 +33,7 @@ const Sortable = <TRecord extends AnyObject = AnyObject>({
 
   onChange,
 
-  classNames,
+  className,
   withOverlay = true,
   ...props
 }: SortableProps<TRecord>) => {
@@ -57,9 +56,8 @@ const Sortable = <TRecord extends AnyObject = AnyObject>({
       key = item.key;
     }
 
-    if (!key) {
-      key = `sortable-item-${index}`;
-    }
+    key ??= `sortable-item-${index}`;
+
     return renderItem ? (
       <React.Fragment key={key}>{renderItem({ record: item })}</React.Fragment>
     ) : (
@@ -77,12 +75,14 @@ const Sortable = <TRecord extends AnyObject = AnyObject>({
       }}
       {...props}
     >
-      <SortableContent className={classNames?.content}>
+      <SortableContent className={className}>
         {items.map((item, index) => renderInternalItem(item, index))}
       </SortableContent>
       {withOverlay && (
         <SortableOverlay>
-          {({ item }) => renderInternalItem(item, 0).props.children}
+          {({ item }) =>
+            renderInternalItem(item, 0).props.children as React.ReactNode
+          }
         </SortableOverlay>
       )}
     </SortableRoot>
